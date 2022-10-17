@@ -1,0 +1,9 @@
+{
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingModuleSource": "none"
+  },
+  "python.formatting.provider": "black",
+  "python.analysis.extraPaths": [
+    "src/lib"
+  ]
+}

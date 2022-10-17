@@ -3,3 +3,9 @@
 
 # KiCad
 /schematic/*-backups/
+
+# Dependencies
+/src/lib/
+
+# User-specific configuration
+/src/config.json
