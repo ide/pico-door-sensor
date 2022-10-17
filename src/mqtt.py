@@ -1,27 +1,11 @@
 import json
 
-from mqtt_as import MQTTClient, config as mqtt_default_client_config
-
-
-def mqtt_client_config(config: dict) -> dict:
-    mqtt_config = config.get("mqtt", {})
-    wifi_config = config.get("wifi", {})
-    return dict(
-        mqtt_default_client_config,
-        ssid=wifi_config.get("ssid"),
-        wifi_pw=wifi_config.get("password"),
-        server=mqtt_config.get("hostname"),
-        user=mqtt_config.get("username"),
-        password=mqtt_config.get("password"),
-    )
-
-
-async def publish_homeassistant_discovery_message(
-    mqtt: MQTTClient, device_id: str, state_topic: str
+def publish_homeassistant_discovery_message(
+    mqtt, device_id: str, state_topic: str
 ) -> None:
-    await mqtt.publish(
+    mqtt.publish(
         f"homeassistant/binary_sensor/{device_id}/config",
-        mqtt_json_message(
+        json.dumps(
             {
                 "unique_id": device_id,
                 "name": "Garage Door",
@@ -41,9 +25,10 @@ async def publish_homeassistant_discovery_message(
     )
 
 
-def mqtt_string_message(string: str) -> bytes:
-    return bytes(string, "utf-8")
-
-
-def mqtt_json_message(object: dict) -> bytes:
-    return bytes(json.dumps(object), "utf-8")
+def publish_sensor_state_message(mqtt, state_topic: str, sensor_state: bool) -> None:
+    mqtt.publish(
+        state_topic,
+        "ON" if sensor_state else "OFF",
+        retain=True,
+        qos=1,
+    )

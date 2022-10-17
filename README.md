@@ -1,6 +1,6 @@
 # Pico W Garage Door Sensor
 
-Get notified when your garage door's been left open. This sensor uses the Raspberry Pi Pico W and MicroPython.
+Get notified when your garage door's been left open. This sensor uses the Raspberry Pi Pico W and CircuitPython and requires Home Assistant with MQTT set up.
 
 ## Hardware
 
@@ -28,7 +28,18 @@ You could add a small capacitor to debounce the reed switch in hardware but this
 |           | Stranded copper wire, 22-24 AWG (long enough to reach your garage door from the Pico and back) |                                                                                                                                                                                               |
 ## Software
 
-Install MicroPython on your Pico W using [a .uf2 file](https://micropython.org/download/rp2-pico-w/) from the MicroPython website.
+Install CircuitPython 8 on your Pico W using [a .uf2 file](https://circuitpython.org/board/raspberry_pi_pico_w/) from the CircuitPython website.
 
+Create settings.toml under src or directly in your CIRCUITPY drive and define the following environment variables:
+```toml
+CIRCUITPY_WIFI_SSID = "your Wi-Fi access point's name"
+CIRCUITPY_WIFI_PASSWORD = "your Wi-Fi password"
 
+MQTT_HOSTNAME = "your MQTT broker's hostname"
+MQTT_USERNAME = "the username to use with your MQTT broker"
+MQTT_PASSWORD = "the password to use with your MQTT broker"
 
+WIFI_HOSTNAME = "garagesensor"
+```
+
+There are convenient scripts under the `scripts` directory for deploying software to your Pico W and connecting to its REPL. Only macOS is supported.
