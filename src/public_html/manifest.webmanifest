@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Garage Door Sensor",
+  "short_name": "Garage",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#252526",
+  "description": "Check on whether your garage door is open",
+  "icons": [
+    {
+      "src": "icon-192.avif",
+      "sizes": "192x192",
+      "type": "image/avif"
+    },
+    {
+      "src": "icon-512.avif",
+      "sizes": "512x512",
+      "type": "image/avif"
+    }
+  ]
+}

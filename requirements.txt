@@ -1,4 +1,5 @@
 adafruit_debouncer==2.0.5
-adafruit_ticks==1.0.9
 adafruit_logging==5.2.1
+adafruit_ticks==1.0.9
+adafruit_httpserver==2.3.0
 adafruit_minimqtt==7.2.2
