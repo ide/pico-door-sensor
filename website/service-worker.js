@@ -8,7 +8,6 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('push', (event) => {
   const message = event.data.json();
-  console.log(message);
   event.waitUntil(
     self.registration.showNotification(message.title, {
       body: message.body,
@@ -19,4 +18,6 @@ self.addEventListener('push', (event) => {
   );
 });
 
-self.addEventListener('pushsubscriptionchange', (event) => {});
+// TODO: handle changes to the push subscription, such as when the user disables push notifications
+// through the system settings or when the browser cycles the push subscription
+// self.addEventListener('pushsubscriptionchange', (event) => {});
