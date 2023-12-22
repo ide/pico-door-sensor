@@ -1,5 +1,6 @@
 import json
 
+
 def publish_homeassistant_discovery_message(
     mqtt, device_id: str, state_topic: str
 ) -> None:
