@@ -23,6 +23,7 @@ def publish_homeassistant_discovery_message(
             }
         ),
         retain=True,
+        qos=1,
     )
 
 
