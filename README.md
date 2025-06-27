@@ -28,7 +28,7 @@ You could add a small capacitor to debounce the reed switch in hardware but this
 |           | Stranded copper wire, 22-24 AWG (long enough to reach your garage door from the Pico and back) |                                                                                                                                                                                               |
 ## Software
 
-Install CircuitPython 8 on your Pico W using [a .uf2 file](https://circuitpython.org/board/raspberry_pi_pico_w/) from the CircuitPython website.
+Install CircuitPython 9 on your Pico W using [a .uf2 file](https://circuitpython.org/board/raspberry_pi_pico_w/) from the CircuitPython website.
 
 Create settings.toml under src or directly in your CIRCUITPY drive and define the following environment variables:
 ```toml

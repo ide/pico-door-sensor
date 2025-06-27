@@ -27,10 +27,27 @@ if ! command -v circup &> /dev/null; then
 fi
 
 echo 'Detecting your CircuitPython device...'
-device_path=$(python3 -c 'import circup; print(circup.find_device())')
-if [ "$device_path" == 'None' ]; then
-  echo 'circup could not detect a connected CircuitPython device. Make sure your device is flashed with CircuitPython and connected to your computer with a USB data cable.'
-  exit 1
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS: Check /Volumes for CIRCUITPY
+    device_path="/Volumes/CIRCUITPY"
+    if [ ! -d "$device_path" ]; then
+        echo 'Could not detect a connected CircuitPython device. Make sure your device is flashed with CircuitPython and connected to your computer with a USB data cable.'
+        exit 1
+    fi
+elif [[ "$OSTYPE" == "linux"* ]]; then
+    # Linux: Check /media/$USER for CIRCUITPY
+    device_path="/media/$USER/CIRCUITPY"
+    if [ ! -d "$device_path" ]; then
+        # Also check /run/media/$USER for CIRCUITPY (for some Linux distros)
+        device_path="/run/media/$USER/CIRCUITPY"
+        if [ ! -d "$device_path" ]; then
+            echo 'Could not detect a connected CircuitPython device. Make sure your device is flashed with CircuitPython and connected to your computer with a USB data cable.'
+            exit 1
+        fi
+    fi
+else
+    echo "Unsupported operating system: $OSTYPE"
+    exit 1
 fi
 echo "Found device at $device_path"
 
