@@ -5,6 +5,7 @@ import traceback
 
 import board
 import digitalio
+import mdns
 import microcontroller
 import socketpool
 import supervisor
@@ -43,6 +44,11 @@ def main(logger: adafruit_logging.Logger) -> None:
         wifi.radio.ipv4_dns,
     )
     pool = socketpool.SocketPool(wifi.radio)
+
+    # Advertise a local hostname with mDNS for pinging the device
+    mdns_server = mdns.Server(wifi.radio)
+    mdns_server.hostname = wifi.radio.hostname
+    logger.info("Advertised mDNS hostname: %s", mdns_server.hostname)
 
     # Connect to the MQTT broker
     logger.info("Connecting to the MQTT broker...")
