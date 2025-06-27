@@ -29,7 +29,9 @@ def create_logger() -> adafruit_logging.Logger:
     log_filename = os.getenv("LOG_FILE")
     if log_filename and not storage.getmount("/").readonly:
         handler = _file_handler(logger, log_filename)
-        handler.setLevel(adafruit_logging.ERROR)
+        log_level_name = os.getenv("LOG_LEVEL", "ERROR").upper()
+        log_level = getattr(adafruit_logging, log_level_name, adafruit_logging.ERROR)
+        handler.setLevel(log_level)
         logger.addHandler(handler)
 
     return logger
