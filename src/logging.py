@@ -7,7 +7,7 @@ import supervisor
 import adafruit_logging
 
 
-_LOG_SIZE_THRESHOLD_BYTES = 100 * 1024**2
+_LOG_SIZE_THRESHOLD_BYTES = 100 * 1024
 
 
 def create_logger() -> adafruit_logging.Logger:
