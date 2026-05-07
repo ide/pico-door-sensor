@@ -88,8 +88,12 @@ def main(logger: adafruit_logging.Logger) -> None:
     publish_homeassistant_discovery_message(
         mqtt, mqtt_device_id, mqtt_state_topic, mqtt_availability_topic
     )
-    publish_sensor_state_message(mqtt, mqtt_state_topic, not switch.value)
-    logger.info("Advertised Home Assistant discovery message and current door state")
+    is_door_open = not switch.value
+    publish_sensor_state_message(mqtt, mqtt_state_topic, is_door_open)
+    logger.info(
+        "Advertised Home Assistant discovery message and current door state (%s)",
+        "open" if is_door_open else "closed",
+    )
 
     logger.info("Monitoring door sensor...")
     while True:
