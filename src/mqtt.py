@@ -2,7 +2,7 @@ import json
 
 
 def publish_homeassistant_discovery_message(
-    mqtt, device_id: str, state_topic: str
+    mqtt, device_id: str, state_topic: str, availability_topic: str
 ) -> None:
     mqtt.publish(
         f"homeassistant/binary_sensor/{device_id}/config",
@@ -20,6 +20,10 @@ def publish_homeassistant_discovery_message(
                 },
                 "device_class": "garage_door",
                 "state_topic": state_topic,
+                # Home Assistant accepts the strings "online" and "offline" as the availability
+                # payloads by default, so we don't need to specify "payload_available" and
+                # "payload_not_available" fields in this discovery message.
+                "availability_topic": availability_topic,
             }
         ),
         retain=True,
@@ -34,3 +38,11 @@ def publish_sensor_state_message(mqtt, state_topic: str, sensor_state: bool) -> 
         retain=True,
         qos=1,
     )
+
+
+def publish_availability_online_message(mqtt, availability_topic: str) -> None:
+    mqtt.publish(availability_topic, "online", retain=True, qos=1)
+
+
+def set_availability_offline_will(mqtt, availability_topic: str) -> None:
+    mqtt.will_set(availability_topic, "offline", retain=True, qos=1)
