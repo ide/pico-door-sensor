@@ -51,7 +51,7 @@ def _file_handler(
             logger.info("Log file is %d bytes, appending to existing log file", size)
     except OSError as error:
         if error.errno != errno.ENOENT:
-            raise error
+            raise
         log_file_mode = "w"
         logger.info("Log file does not exist, creating a new log file")
 
