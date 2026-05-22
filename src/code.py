@@ -98,7 +98,7 @@ def main(logger: adafruit_logging.Logger) -> None:
     logger.info("Monitoring door sensor...")
     while True:
         switch.update()
-        mqtt.loop()
+        mqtt.loop(timeout=0.05)
 
         if switch.rose or switch.fell:
             is_door_open = not switch.value
