@@ -43,3 +43,9 @@ WIFI_HOSTNAME = "garagesensor"
 ```
 
 There are convenient scripts under the `scripts` directory for deploying software to your Pico W and connecting to its REPL. Only macOS is supported.
+
+### MiniMQTT fork
+
+This project uses a fork of Adafruit_CircuitPython_MiniMQTT with [PR #259](https://github.com/adafruit/Adafruit_CircuitPython_MiniMQTT/pull/259), which allows `MQTT.loop()` timeouts shorter than the socket timeout, so the main loop's wait between reed switch checks is not coupled to the socket timeout. The compiled .mpy files are committed under `vendor/lib` and `scripts/deploy` copies them to the device. The other libraries in requirements.txt are still installed with circup.
+
+The committed .mpy files were compiled from [`28bfda9`](https://github.com/ide/Adafruit_CircuitPython_MiniMQTT/commit/28bfda91ad284db04ac91869ced3c6a5aa4517a4) on the fork's `loop-timeout-independent-of-socket-timeout` branch using CircuitPython's mpy-cross 10.2.1, and load on any CircuitPython 10.x since the bytecode format only changes between major versions. To recompile them after updating the fork or moving to a new CircuitPython major, download CircuitPython's mpy-cross (not MicroPython's, which emits an incompatible format) from the [mpy-cross builds on S3](https://adafruit-circuit-python.s3.amazonaws.com/index.html?prefix=bin/mpy-cross/) and run it on each .py file in the fork's `adafruit_minimqtt` package. When the PR merges upstream, delete `vendor/` and restore the `adafruit_minimqtt` entry in requirements.txt.

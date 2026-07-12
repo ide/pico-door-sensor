@@ -2,4 +2,5 @@ adafruit_connection_manager==3.1.8
 adafruit_ticks==1.1.7
 adafruit_logging==5.6.4
 adafruit_debouncer==2.0.15
-adafruit_minimqtt==8.0.4
+# adafruit_minimqtt is vendored as compiled .mpy files under vendor/lib (see the README for
+# provenance); adafruit_connection_manager and adafruit_ticks above are its dependencies

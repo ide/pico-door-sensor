@@ -78,3 +78,11 @@ rsync --verbose --recursive --delete --checksum \
   "${rsync_excludes[@]}" \
   "$project_directory/src/" "$device_path"
 echo 'Finished copying application code'
+
+# The committed .mpy files are compiled for the CircuitPython major version noted in the README;
+# recompile them (see the README) when the fork or the CircuitPython major changes
+echo 'Copying the vendored MiniMQTT fork...'
+rm -rf "$device_path/lib/adafruit_minimqtt"
+mkdir -p "$device_path/lib/adafruit_minimqtt"
+cp "$project_directory/vendor/lib/adafruit_minimqtt/"*.mpy "$device_path/lib/adafruit_minimqtt/"
+echo 'Finished copying the vendored MiniMQTT fork'
