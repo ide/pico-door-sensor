@@ -10,7 +10,7 @@ def publish_homeassistant_discovery_message(
             {
                 "unique_id": device_id,
                 "name": "Garage Door",
-                "object_id": "garage_door",
+                "default_entity_id": "binary_sensor.garage_door",
                 "device": {
                     "name": "Door Sensor",
                     "identifiers": [device_id],
